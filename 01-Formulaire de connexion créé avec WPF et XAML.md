@@ -310,3 +310,172 @@ private void btnAnnuler_Click(object sender, RoutedEventArgs e)
 
 
 
+<br/>
+
+# Annexe 2
+
+
+## 2.1. Explication du code C# (WPF)
+
+```csharp
+using System.Windows;
+
+namespace College
+{
+    /// <summary>
+    /// Logique d’interaction pour frmLoggin.xaml
+    /// </summary>
+    public partial class frmLoggin : Window
+    {
+        public frmLoggin()
+        {
+            InitializeComponent();
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Vous avez cliquez sur le bouton OK.", "Attention !",
+                            MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+
+        private void btnAnnuler_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Vous avez cliquez sur le bouton Annuler.", "Attention !",
+                            MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+    }
+}
+```
+
+Points à retenir (pédagogiques) :
+
+* `using System.Windows;` : espace de noms qui expose les classes WPF (dont `Window` et `MessageBox`).
+* `public partial class frmLoggin : Window` : classe fenêtre WPF associée au fichier XAML `frmLoggin.xaml`.
+  `partial` indique que la définition de la classe est répartie entre XAML généré et code-behind.
+* `InitializeComponent()` : instancie les contrôles définis en XAML et connecte les événements (`Click=...`).
+* `btnOk_Click` / `btnAnnuler_Click` : gestionnaires d’évènements reliés aux boutons.
+  `MessageBox.Show(...)` affiche une boîte de dialogue avec :
+
+  * le **texte**,
+  * le **titre** (caption),
+  * les **boutons** (`MessageBoxButton.OK`),
+  * l’**icône** (`MessageBoxImage.Exclamation`).
+
+Remarque de qualité :
+
+* Dans votre extrait initial, les guillemets typographiques `‘‘ ’’` doivent être remplacés par des guillemets standards `" "` pour compiler.
+* Nom de classe : on préfère `frmLogin` (typo mineure).
+
+
+
+## 2.2. Tableau ultra-détaillé sur `MessageBoxImage.Exclamation`
+
+| Aspect                        | Détail                                                                                                                                                                        |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nom de l’énumération          | `MessageBoxImage.Exclamation`                                                                                                                                                 |
+| Synonyme WPF                  | `MessageBoxImage.Warning` (même valeur)                                                                                                                                       |
+| Valeur numérique              | `48` (héritée de Win32 `MB_ICONEXCLAMATION` = 0x30)                                                                                                                           |
+| Apparence visuelle            | Triangle jaune avec point d’exclamation noir, à gauche du message                                                                                                             |
+| Sens/UI intent                | Avertissement, action risquée, conséquence potentielle, entrée invalide mais récupérable                                                                                      |
+| Son système associé           | Son “Exclamation” de Windows (équivalent à `SystemSounds.Exclamation`)                                                                                                        |
+| Boutons typiques              | `OK`, `OKCancel`, `YesNo`, `YesNoCancel` selon le scénario                                                                                                                    |
+| Scénarios d’usage recommandés | Confirmation d’une action potentiellement dangereuse (supprimer, écraser un fichier), champs manquants, limites non critiques                                                 |
+| À éviter pour                 | Erreurs fatales (utiliser `Error/Hand/Stop`), information neutre (`Information/Asterisk`), questions pures (`Question`)                                                       |
+| Accessibilité                 | Icône et son aident la perception du niveau de gravité. Le texte doit rester clair et non alarmiste                                                                           |
+| Comportement clavier          | `Enter` active le bouton par défaut, `Esc` le bouton d’annulation si présent                                                                                                  |
+| DPI/Thème                     | Icône rendue par le système, adaptée au thème et aux échelles DPI                                                                                                             |
+| Localisation                  | Le titre et le message doivent être localisés ; l’icône est standard système                                                                                                  |
+| Exemple minimal               | `MessageBox.Show("Attention : action irréversible.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Exclamation);`                                                     |
+| Exemple avec choix            | `var r = MessageBox.Show("Supprimer ce fichier ?", "Avertissement", MessageBoxButton.YesNo, MessageBoxImage.Exclamation); if (r == MessageBoxResult.Yes) { /* supprimer */ }` |
+| Overload avec propriétaire    | `MessageBox.Show(this, "…", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Exclamation);` centre la boîte sur la fenêtre                                               |
+| Equivalence Win32             | `MB_ICONWARNING` / `MB_ICONEXCLAMATION`                                                                                                                                       |
+
+
+
+# 2.3. Référence rapide : toutes les icônes possibles de `MessageBoxImage`
+
+| Icône         | Valeur | Synonymes (même valeur) | Visuel                      | Usage recommandé                          |
+| ------------- | -----: | ----------------------- | --------------------------- | ----------------------------------------- |
+| `None`        |      0 | —                       | Aucune icône                | Messages neutres très simples             |
+| `Hand`        |     16 | `Stop`, `Error`         | Rond rouge avec croix/paume | Erreur critique, opération impossible     |
+| `Question`    |     32 | —                       | Point d’interrogation       | Question ouverte requérant un choix clair |
+| `Exclamation` |     48 | `Warning`               | Triangle jaune “!”          | Avertissement, attention requise          |
+| `Asterisk`    |     64 | `Information`           | Rond bleu “i”               | Information, confirmation non critique    |
+
+Notes :
+
+* Les synonymes partagent exactement la même valeur (comportement identique).
+* La sélection de l’icône doit refléter la **gravité** et **l’intention** du message.
+
+
+
+# 2.4. Bonnes pratiques pour vos étudiants
+
+1. **Choisir l’icône selon la gravité**
+
+   * Critique bloquant : `Error/Hand/Stop`
+   * Avertissement récupérable : `Exclamation/Warning`
+   * Simple information : `Information/Asterisk`
+   * Question nécessitant décision : `Question`
+
+2. **Toujours proposer un libellé clair et actionnable**
+
+   * Préférer des phrases orientées action.
+   * Exemple : “Supprimer définitivement ce document ?” plutôt que “Avertissement”.
+
+3. **Adapter les boutons au contexte**
+
+   * Confirmation binaire : `YesNo`
+   * Validation/annulation : `OKCancel`
+   * Simple notification : `OK`
+
+4. **Traiter le retour**
+
+   * `var result = MessageBox.Show(...);`
+     Basculer selon `MessageBoxResult` (`OK`, `Cancel`, `Yes`, `No`).
+
+5. **Centrez la boîte sur la fenêtre principale**
+
+   * Utiliser la surcharge avec `owner` : `MessageBox.Show(this, ...)`.
+
+
+
+# 2.5. Exemples prêts à copier
+
+## A) Avertissement avec choix
+
+```csharp
+var res = MessageBox.Show(
+    "Cette opération va écraser le fichier existant. Continuer ?",
+    "Avertissement",
+    MessageBoxButton.YesNo,
+    MessageBoxImage.Exclamation);
+
+if (res == MessageBoxResult.Yes)
+{
+    // Exécuter l’action
+}
+```
+
+## B) Notification d’entrée invalide (récupérable)
+
+```csharp
+MessageBox.Show(
+    "Le champ Nom d’utilisateur est requis.",
+    "Avertissement",
+    MessageBoxButton.OK,
+    MessageBoxImage.Exclamation);
+```
+
+## C) Variante centrée sur la fenêtre
+
+```csharp
+MessageBox.Show(
+    this,
+    "Veuillez vérifier les informations saisies.",
+    "Avertissement",
+    MessageBoxButton.OK,
+    MessageBoxImage.Exclamation);
+```
+
+
