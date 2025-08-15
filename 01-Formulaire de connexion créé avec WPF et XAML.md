@@ -165,7 +165,7 @@ private void btnAnnuler_Click(object sender, RoutedEventArgs e)
 
 <br/>
 
-# 7. Points pédagogiques à enseigner
+# 7. Points pédagogiques
 
 1. **Accessibilité**
 
@@ -185,4 +185,128 @@ private void btnAnnuler_Click(object sender, RoutedEventArgs e)
 
    * Ne jamais stocker un mot de passe en clair dans le code.
    * Utiliser `PasswordBox` au lieu de `TextBox` pour masquer les caractères.
+
+<br/>
+
+# Annexe 1 - Glossaire des termes clés – Formulaire de connexion WPF
+
+## 1.1. `_` (underscore dans un texte de Label ou Button)
+
+* **Définition** : En WPF, lorsqu’on place un underscore (`_`) dans le texte (`Content`) d’un contrôle `Label` ou `Button`, la lettre qui suit devient une **touche d’accès rapide** (aussi appelée *mnemonic* ou *accelerator key*).
+* **Exemple** :
+
+  ```xml
+  <Label Content="_Nom d’utilisateur" ... />
+  ```
+
+  Ici, **Alt+N** activera le raccourci.
+* **Utilité** :
+
+  * Améliorer l’accessibilité pour les personnes utilisant uniquement le clavier.
+  * Permettre une navigation plus rapide.
+* **Remarque** :
+
+  * Pour que le raccourci d’un `Label` place le curseur dans un champ, il faut définir la propriété `Target`.
+
+
+
+## 1.2. `Binding`
+
+* **Définition** : En WPF, **Binding** est un mécanisme qui permet de relier (*lier*) une propriété d’un contrôle à une donnée ou à un autre contrôle, sans avoir à écrire de code manuel pour cette synchronisation.
+* **Syntaxe dans ce contexte** :
+
+  ```xml
+  Target="{Binding ElementName=txtUtilisateur}"
+  ```
+* **Signification ici** :
+
+  * `Target` indique au `Label` quel contrôle recevoir le focus lorsque l’utilisateur active le raccourci clavier.
+  * `ElementName=txtUtilisateur` signifie que le label est lié à la zone de texte nommée `txtUtilisateur`.
+* **Utilité** :
+
+  * Réduire le code C# nécessaire pour relier des éléments.
+  * Centraliser les relations entre composants directement dans le XAML.
+
+
+
+## 1.3. `Content`
+
+* **Définition** : Propriété commune aux contrôles comme `Label` ou `Button` en WPF qui définit le texte (ou contenu visuel) affiché.
+* **Exemple** :
+
+  ```xml
+  <Button Content="_OK" ... />
+  ```
+
+  Affiche le texte "OK" avec un raccourci clavier Alt+O.
+
+
+
+## 1.4. `Target`
+
+* **Définition** : Propriété d’un `Label` qui permet d’associer ce label à un contrôle d’entrée (`TextBox`, `PasswordBox`, etc.).
+* **Exemple** :
+
+  ```xml
+  Target="{Binding ElementName=txtMotPasse}"
+  ```
+
+  Associe le label au champ mot de passe.
+* **Effet** :
+
+  * Le raccourci clavier défini dans le `Content` du label positionnera le curseur dans le contrôle cible.
+
+
+
+## 1.5. `TextBox`
+
+* **Définition** : Contrôle WPF permettant à l’utilisateur de saisir du texte libre.
+* **Caractéristiques** :
+
+  * Affiche le texte en clair.
+  * Idéal pour les noms, emails, etc.
+
+
+
+## 1.6. `PasswordBox`
+
+* **Définition** : Contrôle WPF similaire à `TextBox` mais conçu pour saisir un mot de passe.
+* **Différences avec `TextBox`** :
+
+  * Les caractères saisis sont masqués (généralement affichés sous forme de points).
+  * La propriété contenant le mot de passe est `Password` et non `Text`.
+
+
+
+## 1.7. `Click`
+
+* **Définition** : Événement déclenché lorsqu’un bouton est activé (clic souris ou raccourci clavier).
+* **Exemple** :
+
+  ```xml
+  Click="btnOk_Click"
+  ```
+
+  Appelle la méthode `btnOk_Click` dans le code C#.
+
+
+
+## 1.8. `Grid`
+
+* **Définition** : Conteneur WPF permettant de placer des contrôles dans un tableau de lignes et de colonnes.
+* **Avantage** :
+
+  * Organisation précise des éléments.
+  * Adaptable à différentes tailles de fenêtre.
+
+
+
+## 1.9. `WrapPanel`
+
+* **Définition** : Conteneur WPF qui dispose ses enfants horizontalement ou verticalement, et passe automatiquement à la ligne si l’espace est insuffisant.
+* **Utilisation ici** :
+
+  * Placer les boutons OK et Annuler côte à côte.
+
+
 
