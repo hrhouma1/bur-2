@@ -17,6 +17,3 @@ private void btnOk_Click(object sender, EventArgs e)
 }
 ```
 
-
-Si tu veux, je peux aussi te fournir **la version intégrée directement dans ton code `frmLoggin`** avec à la fois le bouton **OK** qui affiche ce message et le bouton **Annuler** qui ferme la fenêtre.
-Veux-tu que je te fasse cette version complète ?
