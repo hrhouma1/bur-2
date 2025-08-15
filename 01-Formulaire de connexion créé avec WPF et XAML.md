@@ -409,7 +409,7 @@ Notes :
 
 
 
-# 2.4. Bonnes pratiques pour vos étudiants
+# 2.4. Bonnes pratiques
 
 1. **Choisir l’icône selon la gravité**
 
