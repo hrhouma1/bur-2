@@ -19,7 +19,7 @@ Votre travail consiste à **compléter** ces fonctionnalités en respectant les 
 - (2) *Entity Framework 6 — Database First* (modèle `.edmx` généré depuis la BD);
 - (3) *Entity Framework 6 — Code First* (classes POCO + migrations).
 
-Indiquez l’option retenue dans votre .docx. »**
+**Indiquez l’option retenue dans votre .docx. »**
 
 
 
