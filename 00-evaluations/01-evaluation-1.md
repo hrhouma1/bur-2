@@ -14,7 +14,12 @@ Votre travail consiste à **compléter** ces fonctionnalités en respectant les 
 
 > Note importante:
 
-**« Vous avez 3 possibilités d’implémentation au choix : (1) *ADO.NET (SqlClient)* avec requêtes paramétrées et **chaîne de connexion** que **vous définissez** dans `App.config`; (2) *Entity Framework 6 — Database First* (modèle `.edmx` généré depuis la BD); (3) *Entity Framework 6 — Code First* (classes POCO + migrations). Indiquez l’option retenue dans votre .docx. »**
+**« Vous avez 3 possibilités d’implémentation au choix : 
+- (1) *ADO.NET (SqlClient)* avec requêtes paramétrées et **chaîne de connexion** que **vous définissez** dans `App.config`;
+- (2) *Entity Framework 6 — Database First* (modèle `.edmx` généré depuis la BD);
+- (3) *Entity Framework 6 — Code First* (classes POCO + migrations).
+
+Indiquez l’option retenue dans votre .docx. »**
 
 
 
